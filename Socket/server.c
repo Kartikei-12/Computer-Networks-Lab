@@ -11,6 +11,8 @@
 
 int main()
 {
+	char choice;
+	int iteration_count = 0;
     time_t clock;
 	char dataSending[1025];
 	
@@ -67,8 +69,19 @@ int main()
 		// Write to given socket dataSending of length strlen(dataSending)
 		write(clintConnt, dataSending, strlen(dataSending));
  
-		sleep(2);
+		sleep(1);
+
 		close(clintConnt);
+
+		++iteration_count;
+		if(iteration_count % 5 == 0)
+		{
+			printf("Five more request served, Should proceed ? (y/n)");
+			scanf("%c", &choice);
+			if(choice == 'n' || choice == 'N')
+				return 0;
+		}
+
 	 }
 	 
      return 0;

@@ -61,9 +61,9 @@ int main()
 		// Accept from socket address
 		clintConnt = accept(clientListen, (struct sockaddr*)NULL, NULL);
 		pid_t pp = fork();
-		++replyCount;
 		if(clintConnt > 0 && pp == 0)
 		{
+			printf("\n********************* Response ************************\n");
 			printf("clintConnt: %d\n", clintConnt);
 			clock = time(NULL);
 			snprintf(
@@ -76,14 +76,16 @@ int main()
 			// Write to given socket dataSending of length strlen(dataSending)
 			write(clintConnt, dataSending, strlen(dataSending));
 	
-			int sl = __random__(4);
-			printf("Sleeping for %d\n", sl);
+			int sl = __random__(5);
+			printf("Sleeping for %d with reply count %d\n", sl, replyCount);
+			printf("\n********************* Response Done************************\n");
 			sleep(sl);
 			close(clintConnt);
 			exit(1);
 		}
+		++replyCount;
 		printf("Reply count: %d\n", replyCount);
-		printf("\n----------------------- Iteration done --------------------\n");
+		printf("\nIteration done\n");
 		sleep(1);
 	} 
     return 0;
